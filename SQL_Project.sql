@@ -46,10 +46,11 @@ create table if not exists products
 
 create table if not exists order_products
 (
-    order_id   int primary key,
+    order_id   int ,
     product_id int,
     quantity   int default 0,
 
+    CONSTRAINT PK_order PRIMARY KEY (order_id,product_id),
     foreign key (order_id) references orders(id),
     foreign key (product_id) references products(id)
 
