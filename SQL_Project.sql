@@ -4,21 +4,23 @@ use store;
 
 create table if not exists countries
 (
-    code           int primary key,
+    code           int,
     name           varchar(20) unique,
-    continent_name varchar(20) not null
+    continent_name varchar(20) not null,
+
+    PRIMARY KEY (code)
 ) ENGINE = INNODB;
 
 create table if not exists users
 (
-    id            int primary key,
+    id            int,
     full_name     varchar(20),
     email         varchar(30),
     gender        char(1),
     date_of_birth varchar(15),
     created_at    datetime default CURRENT_TIMESTAMP,
     country_code  int,
-
+    primary key(id),
     unique (email),
     check (gender = 'm' or gender = 'f'),
     foreign key (country_code) references countries(code)
@@ -26,22 +28,25 @@ create table if not exists users
 
 create table if not exists orders
 (
-    id         int primary key,
+    id         int,
     user_id    int,
     status     varchar(6) check ( status = 'start' or status = 'finish' ),
     created_at datetime default CURRENT_TIMESTAMP,
 
+    primary key (id),
     foreign key (user_id) references users(id)
 
 ) ENGINE = INNODB;
 
 create table if not exists products
 (
-    id         int primary key,
+    id         int,
     name       varchar(10) not null,
     price      int default 0,
     status     varchar(10) check ( status = 'valid' or status = 'expired' ),
-    created_at datetime default CURRENT_TIMESTAMP
+    created_at datetime default CURRENT_TIMESTAMP,
+
+    primary key (id)
 ) ENGINE = INNODB;
 
 create table if not exists order_products
