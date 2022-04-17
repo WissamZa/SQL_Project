@@ -7,7 +7,7 @@ create table if not exists countries
     code           int primary key,
     name           varchar(20) unique,
     continent_name varchar(20) not null
-);
+) ENGINE = INNODB;
 
 create table if not exists users
 (
@@ -17,12 +17,12 @@ create table if not exists users
     gender        char(1),
     date_of_birth varchar(15),
     created_at    datetime default CURRENT_TIMESTAMP,
-    country_code  int ,
+    country_code  int,
 
     unique (email),
     check (gender = 'm' or gender = 'f'),
     foreign key (country_code) references countries(code)
-);
+) ENGINE = INNODB;
 
 create table if not exists orders
 (
@@ -33,7 +33,7 @@ create table if not exists orders
 
     foreign key (user_id) references users(id)
 
-);
+) ENGINE = INNODB;
 
 create table if not exists products
 (
@@ -42,7 +42,7 @@ create table if not exists products
     price      int default 0,
     status     varchar(10) check ( status = 'valid' or status = 'expired' ),
     created_at datetime default CURRENT_TIMESTAMP
-);
+) ENGINE = INNODB;
 
 create table if not exists order_products
 (
@@ -55,7 +55,7 @@ create table if not exists order_products
     foreign key (product_id) references products(id)
 
 
-);
+) ENGINE = INNODB;
 
 insert into countries values (1,'Saudi Arabia','Asia');
 insert into users values (1,'Wissam Zaidi','bargsaudi@hotmail.com','m','30/03/1995',DEFAULT,1);
